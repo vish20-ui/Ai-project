@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Online Chat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .chat-container {
+            width: 100%;
+            max-width: 400px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            padding: 15px;
+            background: #4a90e2;
+            color: white;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .message {
+            margin-bottom: 10px;
+        }
+
+        .username {
+            font-weight: bold;
+            color: #4a90e2;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            gap: 5px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .chat-input button {
+            padding: 8px 15px;
+            background: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .chat-input button:hover {
+            background: #357bd8;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="chat-container">
+    <div class="chat-header">
+        Online Chat
+    </div>
+
+    <div class="chat-messages" id="chatMessages"></div>
+
+    <div class="chat-input">
+        <input type="text" id="username" placeholder="Your name">
+        <input type="text" id="messageInput" placeholder="Type a message">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<script>
+    function sendMessage() {
+        const username = document.getElementById("username").value.trim();
+        const message = document.getElementById("messageInput").value.trim();
+        const chatMessages = document.getElementById("chatMessages");
+
+        if (username === "" || message === "") return;
+
+        const messageDiv = document.createElement("div");
+        messageDiv.classList.add("message");
+
+        messageDiv.innerHTML = `<span class="username">${username}:</span> ${message}`;
+        chatMessages.appendChild(messageDiv);
+
+        document.getElementById("messageInput").value = "";
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Send message on Enter key
+    document.getElementById("messageInput").addEventListener("keypress", function(e) {
+        if (e.key === "Enter") {
+            sendMessage();
+        }
+    });
+</script>
+
+</body>
+</html>
